@@ -7,6 +7,7 @@ import com.google.common.collect.Streams;
 import com.loopperfect.buckaroo.*;
 import com.loopperfect.buckaroo.Process;
 import com.loopperfect.buckaroo.bitbucket.BitBucketGitProvider;
+import com.loopperfect.buckaroo.bitbucketserver.BitBucketServerGitProvider;
 import com.loopperfect.buckaroo.github.GitHubGitProvider;
 import com.loopperfect.buckaroo.gitlab.GitLabGitProvider;
 import com.loopperfect.buckaroo.resolver.DependencyResolutionException;
@@ -73,6 +74,7 @@ public final class RecipeSources {
             ImmutableMap.of(
                 Identifier.of("github"), GitProviderRecipeSource.of(fs, GitHubGitProvider.of()),
                 Identifier.of("bitbucket"), GitProviderRecipeSource.of(fs, BitBucketGitProvider.of()),
+                Identifier.of("bitbucketserver"), GitProviderRecipeSource.of(fs, BitBucketServerGitProvider.of()),
                 Identifier.of("gitlab"), GitProviderRecipeSource.of(fs, GitLabGitProvider.of())),
             LazyCookbookRecipeSource.of(cookbookPath));
     }

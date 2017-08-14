@@ -112,6 +112,7 @@ public final class Serializers {
         .registerTypeAdapter(URI.class, new UriDeserializer())
         .registerTypeAdapter(ResolvedDependencyReference.class, new ResolvedDependencyReferenceSerializer())
         .registerTypeAdapter(ResolvedDependencyReference.class, new ResolvedDependencyReferenceDeserializer())
+        .registerTypeAdapter(BitBucketServerConfig.class, new BitBucketServerConfigDeserializer())
         .registerTypeAdapterFactory(new ImmutableListTypeAdapterFactory())
         .registerTypeAdapterFactory(new ImmutableMapTypeAdapterFactory())
         .setPrettyPrinting()

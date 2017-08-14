@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.gson.*;
+import com.loopperfect.buckaroo.BitBucketServerConfig;
 import com.loopperfect.buckaroo.BuckarooConfig;
 import com.loopperfect.buckaroo.RemoteCookbook;
 
@@ -30,10 +31,14 @@ public final class BuckarooConfigDeserializer implements JsonDeserializer<Buckar
                 .map(x -> (RemoteCookbook) context.deserialize(x, RemoteCookbook.class))
                 .collect(Collectors.toList()));
 
-        final Optional<URL> analyticsServer = jsonObject.has("analytics") ?
+        final Optional<java.net.URL> analyticsServer = jsonObject.has("analytics") ?
             Optional.of(context.deserialize(jsonObject.get("analytics"), URL.class)) :
             Optional.empty();
 
-        return BuckarooConfig.of(cookBooks, analyticsServer);
+        final Optional<BitBucketServerConfig> bbsConfig = jsonObject.has("bitbucketserver") ?
+            Optional.of(context.deserialize(jsonObject.get("bitbucketserver"), BitBucketServerConfig.class)) :
+            Optional.empty();
+
+        return BuckarooConfig.of(cookBooks, analyticsServer, bbsConfig);
     }
 }

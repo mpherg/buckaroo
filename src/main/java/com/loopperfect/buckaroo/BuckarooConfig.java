@@ -12,10 +12,16 @@ public final class BuckarooConfig {
 
     public final ImmutableList<RemoteCookbook> cookbooks;
     public final Optional<URL> analyticsServer;
+    public final Optional<BitBucketServerConfig> bbsConfig;
 
     private BuckarooConfig(final ImmutableList<RemoteCookbook> cookbooks, final Optional<URL> analyticsServer) {
+        this(cookbooks, analyticsServer, Optional.empty());
+    }
+
+    private BuckarooConfig(final ImmutableList<RemoteCookbook> cookbooks, final Optional<URL> analyticsServer, final Optional<BitBucketServerConfig> bbsConfig) {
         this.cookbooks = Preconditions.checkNotNull(cookbooks);
         this.analyticsServer = Preconditions.checkNotNull(analyticsServer);
+        this.bbsConfig = Preconditions.checkNotNull(bbsConfig);
     }
 
     @Override
@@ -44,8 +50,12 @@ public final class BuckarooConfig {
             .toString();
     }
 
+    public static BuckarooConfig of(final ImmutableList<RemoteCookbook> cookBooks, final Optional<URL> analyticsServer, final Optional<BitBucketServerConfig> bbsConfig) {
+        return new BuckarooConfig(cookBooks, analyticsServer, bbsConfig);
+    }
+
     public static BuckarooConfig of(final ImmutableList<RemoteCookbook> cookBooks, final Optional<URL> analyticsServer) {
-        return new BuckarooConfig(cookBooks, analyticsServer);
+        return new BuckarooConfig(cookBooks, analyticsServer, Optional.empty());
     }
 
     public static BuckarooConfig of(final ImmutableList<RemoteCookbook> cookBooks, final URL analyticsServer) {

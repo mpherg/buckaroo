@@ -4,6 +4,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.loopperfect.buckaroo.*;
 import com.loopperfect.buckaroo.Process;
+import com.loopperfect.buckaroo.bitbucket.BitBucketGitProvider;
+import com.loopperfect.buckaroo.bitbucketserver.BitBucketServerGitProvider;
 import com.loopperfect.buckaroo.events.ReadConfigFileEvent;
 import com.loopperfect.buckaroo.resolver.AsyncDependencyResolver;
 import com.loopperfect.buckaroo.serialization.Serializers;
@@ -67,6 +69,9 @@ public final class InstallTasks {
 
                 final BuckarooConfig config = readConfigFileEvent.config;
                 final RecipeSource recipeSource = RecipeSources.standard(projectDirectory.getFileSystem(), config);
+
+                // Tell the BitBucket Server about its configuration.
+                BitBucketServerGitProvider.setConfig(config);
 
                 return Process.chain(
 
